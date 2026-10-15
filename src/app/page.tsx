@@ -1,67 +1,71 @@
 import Link from "next/link";
 import { useCases, categories } from "../data/use-cases";
+import UseCaseCard from "../components/UseCaseCard";
 
 export default function Home() {
-  const sorted = [...useCases].sort(
-    (a, b) => (b.saves || 0) - (a.saves || 0)
-  );
-  const byDate = [...useCases].sort(
+  const trending = [...useCases].sort((a, b) => (b.saves || 0) - (a.saves || 0));
+  const latest = [...useCases].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   return (
     <div className="wrap">
       <section className="hero">
-        <h1>Real AI agent use cases for job seekers</h1>
+        <h1>What people are actually doing with AI to get hired</h1>
         <p>
-          What people are actually doing with Claude, ChatGPT, Grok, and custom
-          agents to get hired, switch careers, and negotiate better. Prompts
-          included.
+          Real use cases — Claude, ChatGPT, Grok, custom agents — for resumes,
+          outreach, interviews, and offers. Each one includes the prompt.
         </p>
-        <div className="hero-actions">
-          <Link href="/#newsletter" className="btn">
-            Get 5 every week
-          </Link>
-          <Link href="/submit" className="btn-ghost">
-            Submit a use case
-          </Link>
-        </div>
       </section>
 
       <div className="chips">
-        {categories.map((cat) => (
-          <Link key={cat.slug} href={`/categories/${cat.slug}`} className="chip">
-            {cat.name}
-          </Link>
-        ))}
+        <Link href="/" className="chip chip-active">
+          All {useCases.length}
+        </Link>
+        {categories.map((cat) => {
+          const n = useCases.filter((u) => u.category === cat.slug).length;
+          if (n === 0) return null;
+          return (
+            <Link key={cat.slug} href={`/categories/${cat.slug}`} className="chip">
+              {cat.name}
+            </Link>
+          );
+        })}
       </div>
 
-      <section style={{ marginBottom: "2.5rem" }}>
+      <section className="nl-card" id="newsletter">
+        <div className="nl-left">
+          <p className="nl-kicker">The Job Agent Brief</p>
+          <h2>5 use cases every Monday</h2>
+          <p>
+            Each issue: five real tactics from the past week, the exact prompts,
+            and one "human edge" note for the AI-era market. One email. No
+            threads, no courses.
+          </p>
+          <form className="nl-form">
+            <input type="email" name="email" required placeholder="you@email.com" />
+            <button type="submit">Send me the 5</button>
+          </form>
+          <p className="nl-fine">Free · Unsubscribe anytime · Prompts included</p>
+        </div>
+        <div className="nl-sample" aria-hidden="true">
+          <p className="nl-sample-label">Sample issue</p>
+          <ol className="nl-sample-list">
+            <li>Run 631 job evaluations with a Claude pipeline</li>
+            <li>Map unposted roles + referral paths</li>
+            <li>Build one proof-of-work artifact (not a portfolio)</li>
+            <li>Walk into negotiation with real comp bands</li>
+            <li>Morning shortlist from LinkedIn / Indeed / Glassdoor</li>
+          </ol>
+          <p className="nl-sample-note">+ the prompts for each</p>
+        </div>
+      </section>
+
+      <section style={{ marginBottom: "2.75rem" }}>
         <p className="section-label">Trending</p>
         <div className="list">
-          {sorted.slice(0, 3).map((uc) => (
-            <article key={uc.id} className="item">
-              <h2 className="item-title">{uc.title}</h2>
-              <p className="item-desc">{uc.description}</p>
-              {uc.result && <p className="item-result">→ {uc.result}</p>}
-              <div className="item-meta">
-                <span className="tag">
-                  {categories.find((c) => c.slug === uc.category)?.name}
-                </span>
-                {uc.agent && <span>{uc.agent}</span>}
-                {uc.sourceUrl && (
-                  <>
-                    <span>·</span>
-                    <a href={uc.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      Source
-                    </a>
-                  </>
-                )}
-                {uc.saves !== undefined && (
-                  <span className="saves">{uc.saves} saves</span>
-                )}
-              </div>
-            </article>
+          {trending.slice(0, 4).map((uc) => (
+            <UseCaseCard key={uc.id} uc={uc} />
           ))}
         </div>
       </section>
@@ -69,45 +73,26 @@ export default function Home() {
       <section>
         <p className="section-label">Latest</p>
         <div className="list">
-          {byDate.map((uc) => (
-            <article key={`latest-${uc.id}`} className="item">
-              <h2 className="item-title">{uc.title}</h2>
-              <p className="item-desc">{uc.description}</p>
-              {uc.result && <p className="item-result">→ {uc.result}</p>}
-              <div className="item-meta">
-                <span className="tag">
-                  {categories.find((c) => c.slug === uc.category)?.name}
-                </span>
-                {uc.agent && <span>{uc.agent}</span>}
-                <span>·</span>
-                <time dateTime={uc.date}>
-                  {new Date(uc.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </time>
-                {uc.sourceUrl && (
-                  <>
-                    <span>·</span>
-                    <a href={uc.sourceUrl} target="_blank" rel="noopener noreferrer">
-                      Source
-                    </a>
-                  </>
-                )}
-              </div>
-            </article>
+          {latest.map((uc) => (
+            <UseCaseCard key={`l-${uc.id}`} uc={uc} />
           ))}
         </div>
       </section>
 
-      <section id="newsletter" className="newsletter">
-        <h2>5 real AI job-search tactics</h2>
-        <p>Every week. Real use cases with the prompts. No fluff.</p>
-        <form>
-          <input type="email" name="email" required placeholder="you@email.com" />
-          <button type="submit">Subscribe</button>
-        </form>
-        <p className="fine">Free. Unsubscribe anytime.</p>
+      <section className="cat-section">
+        <p className="section-label">Browse by category</p>
+        <div className="cat-grid">
+          {categories.map((cat) => {
+            const count = useCases.filter((u) => u.category === cat.slug).length;
+            return (
+              <Link key={cat.slug} href={`/categories/${cat.slug}`} className="cat-card">
+                <h3>{cat.name}</h3>
+                <p>{cat.description}</p>
+                <span className="count">{count} use cases</span>
+              </Link>
+            );
+          })}
+        </div>
       </section>
     </div>
   );
