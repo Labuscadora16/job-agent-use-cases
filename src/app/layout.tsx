@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import ThemeToggle from "../components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Job Agent Use Cases — Real AI tactics that helped people get hired",
@@ -14,7 +15,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d)document.documentElement.classList.add('dark')}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body>
         <header className="header">
           <div className="header-inner">
@@ -24,6 +32,7 @@ export default function RootLayout({
             <nav className="nav">
               <Link href="/categories">Categories</Link>
               <Link href="/submit">Submit</Link>
+              <ThemeToggle />
               <Link href="/#newsletter" className="nav-cta">
                 Get the 5
               </Link>
