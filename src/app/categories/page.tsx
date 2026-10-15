@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, useCases } from "@/data/use-cases";
+import { categories, useCases } from "../../data/use-cases";
 
 export default function CategoriesPage() {
   return (

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { categories, useCases } from "@/data/use-cases";
+import { categories, useCases } from "../../../data/use-cases";
 
 export default async function CategoryPage({
   params,

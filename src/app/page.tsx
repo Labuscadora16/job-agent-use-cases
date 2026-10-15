@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCases, categories } from "@/data/use-cases";
+import { useCases, categories } from "../data/use-cases";
 
 export default function Home() {
   const sorted = [...useCases].sort(
