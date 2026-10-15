@@ -19,6 +19,9 @@ export const categories = [
   { slug: "applications", name: "Applications & Automation", description: "Searching, ranking, and applying smarter" },
   { slug: "negotiation", name: "Salary & Negotiation", description: "Getting paid what you’re worth" },
   { slug: "career-switch", name: "Career Switching", description: "Breaking into tech, AI, or new fields" },
+  { slug: "portfolio", name: "Portfolio & Proof of Work", description: "Building case studies, projects, and visible proof that you can do the job" },
+  { slug: "company-research", name: "Company Research", description: "Deep research on companies, teams, culture, and recent news before applying or interviewing" },
+  { slug: "follow-ups", name: "Follow-ups & Closing", description: "Post-interview thank-yous, status checks, and negotiating after the verbal offer" },
   { slug: "mindset", name: "Mindset & Consistency", description: "Staying unstuck and showing up daily" },
 ] as const;
 
