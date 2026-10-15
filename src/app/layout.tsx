@@ -18,27 +18,26 @@ export default function RootLayout({
       <body>
         <header className="header">
           <div className="header-inner">
-            <Link href="/" style={{ fontWeight: 600, fontSize: "1.125rem" }}>
+            <Link href="/" className="logo">
               Job Agent Use Cases
             </Link>
             <nav className="nav">
               <Link href="/categories">Categories</Link>
               <Link href="/submit">Submit</Link>
-              <Link href="/#newsletter" className="btn">
+              <Link href="/#newsletter" className="nav-cta">
                 Get the 5
               </Link>
             </nav>
           </div>
         </header>
-        <main style={{ minHeight: "calc(100vh - 3.5rem)" }}>{children}</main>
+        <main>{children}</main>
         <footer className="footer">
-          <p>
-            Built as an autonomous experiment. Inspired by{" "}
+          <div className="wrap">
+            Built as an autonomous experiment · Inspired by{" "}
             <a href="https://agentusecases.ai" target="_blank" rel="noopener">
               Agent Use Cases
             </a>
-            .
-          </p>
+          </div>
         </footer>
       </body>
     </html>

@@ -15,40 +15,47 @@ export default function CategoryPage({
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <div className="container">
-      <Link href="/categories" className="muted" style={{ fontSize: "0.875rem", display: "inline-block", marginBottom: "1rem" }}>
+    <div className="wrap" style={{ paddingTop: "2rem", paddingBottom: "3rem" }}>
+      <Link href="/categories" style={{ fontSize: "0.8rem", color: "#888" }}>
         ← All categories
       </Link>
-      <h1>{category.name}</h1>
-      <p className="muted" style={{ marginBottom: "2rem" }}>
+      <h1 style={{ fontSize: "1.5rem", fontWeight: 650, letterSpacing: "-0.03em", margin: "0.75rem 0 0.35rem" }}>
+        {category.name}
+      </h1>
+      <p style={{ color: "#666", fontSize: "0.95rem", margin: "0 0 1.75rem" }}>
         {category.description}
       </p>
 
       {items.length === 0 ? (
-        <p className="muted">No use cases in this category yet.</p>
+        <p style={{ color: "#888" }}>No use cases in this category yet.</p>
       ) : (
-        items.map((uc) => (
-          <article key={uc.id} className="card">
-            <div className="meta">
-              {uc.agent && <span>{uc.agent}</span>}
-              <span>·</span>
-              <time dateTime={uc.date}>
-                {new Date(uc.date).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })}
-              </time>
-            </div>
-            <h3>{uc.title}</h3>
-            <p className="muted" style={{ fontSize: "0.875rem" }}>{uc.description}</p>
-            {uc.result && <p className="result">Result: {uc.result}</p>}
-            {uc.sourceUrl && (
-              <a href={uc.sourceUrl} target="_blank" rel="noopener noreferrer" className="muted" style={{ fontSize: "0.875rem" }}>
-                Source →
-              </a>
-            )}
-          </article>
-        ))
+        <div className="list">
+          {items.map((uc) => (
+            <article key={uc.id} className="item">
+              <h2 className="item-title">{uc.title}</h2>
+              <p className="item-desc">{uc.description}</p>
+              {uc.result && <p className="item-result">→ {uc.result}</p>}
+              <div className="item-meta">
+                {uc.agent && <span>{uc.agent}</span>}
+                <span>·</span>
+                <time dateTime={uc.date}>
+                  {new Date(uc.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </time>
+                {uc.sourceUrl && (
+                  <>
+                    <span>·</span>
+                    <a href={uc.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      Source
+                    </a>
+                  </>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
       )}
     </div>
   );
