@@ -1,5 +1,76 @@
-@import "tailwindcss";
-
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #fafafa;
+  color: #18181b;
+  line-height: 1.5;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+button, input, textarea { font: inherit; }
+
+.container { max-width: 64rem; margin: 0 auto; padding: 2.5rem 1rem; }
+.header {
+  border-bottom: 1px solid #e4e4e7;
+  background: rgba(255,255,255,0.9);
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(8px);
+}
+.header-inner {
+  max-width: 64rem; margin: 0 auto; padding: 0 1rem;
+  height: 3.5rem; display: flex; align-items: center; justify-content: space-between;
+}
+.nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.875rem; }
+.btn {
+  background: #18181b; color: #fff; padding: 0.4rem 0.9rem;
+  border-radius: 9999px; font-size: 0.875rem; font-weight: 500;
+  border: none; cursor: pointer; display: inline-block;
+}
+.btn:hover { opacity: 0.9; text-decoration: none; }
+.btn-outline {
+  background: transparent; color: #18181b;
+  border: 1px solid #d4d4d8; padding: 0.6rem 1.25rem;
+  border-radius: 9999px; font-size: 0.875rem; font-weight: 500;
+  display: inline-block;
+}
+.card {
+  background: #fff; border: 1px solid #e4e4e7; border-radius: 0.75rem;
+  padding: 1.25rem; margin-bottom: 1.5rem;
+}
+.card:hover { border-color: #a1a1aa; }
+.badge {
+  background: #f4f4f5; padding: 0.15rem 0.5rem; border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+.meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #71717a; margin-bottom: 0.25rem; }
+.footer {
+  border-top: 1px solid #e4e4e7; padding: 2rem; text-align: center;
+  font-size: 0.875rem; color: #71717a;
+}
+.newsletter {
+  background: #18181b; color: #fff; border-radius: 1rem;
+  padding: 2rem; text-align: center; margin-top: 4rem;
+}
+.newsletter input {
+  flex: 1; padding: 0.65rem 1rem; border-radius: 9999px;
+  border: none; color: #18181b; min-width: 200px;
+}
+.newsletter form {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  max-width: 28rem; margin: 0 auto; justify-content: center;
+}
+.chip {
+  font-size: 0.875rem; padding: 0.25rem 0.75rem; border-radius: 9999px;
+  background: #f4f4f5; display: inline-block; margin: 0.25rem;
+}
+.chip:hover { background: #e4e4e7; text-decoration: none; }
+h1 { font-size: 2rem; font-weight: 600; letter-spacing: -0.025em; margin: 0 0 0.75rem; }
+h2 { font-size: 0.875rem; font-weight: 500; color: #71717a; text-transform: uppercase; letter-spacing: 0.05em; }
+h3 { font-size: 1.125rem; font-weight: 500; margin: 0 0 0.5rem; }
+.muted { color: #52525b; }
+.result { color: #047857; font-size: 0.875rem; margin: 0.75rem 0; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+@media (max-width: 640px) {
+  h1 { font-size: 1.5rem; }
 }
